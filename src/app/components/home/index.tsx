@@ -26,8 +26,8 @@ export function HomeComponent() {
   }
 
   return (
-    <div className="h-screen w-full rounded-md bg-neutral-950 relative flex flex-col items-center justify-center antialiased">
-      <BackgroundBeams />
+    <div className="h-screen w-full rounded-md relative flex flex-col items-center justify-center antialiased">
+      <BackgroundBeams className="bg-neutral-950 -z-50" />
 
       {loading ? (
         <div className="max-w-2xl mx-auto p-4">
@@ -39,7 +39,7 @@ export function HomeComponent() {
           <h1 className="relative z-10 text-lg md:text-7xl  bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-600  text-center font-sans font-bold">
             {`<Punto&Coma />`}
           </h1>
-          <p className="text-neutral-500 max-w-lg mx-auto my-2  text-center relative z-10">
+          <p className="text-neutral-500 max-w-lg mx-auto my-2 text-center relative z-10">
             Comunidad de Discord
           </p>
           <BackgroundGradient className="rounded-lg p-0 bg-neutral-950 dark:bg-zinc-900 mt-8">
@@ -63,7 +63,7 @@ export function HomeComponent() {
             )}
           </div>
         </div>
-        <div className="border-t border-[#5865f2] flex justify-between mt-14 pt-10 items-start w-full max-w-2xl mx-auto">
+        <div className="border-t border-[#5865f2] flex justify-between mt-14 pt-10 items-center w-11/12 max-w-2xl">
           <a data-track="logo" href="/" className="max-w-full inline-block">
             <Image 
               src="https://assets-global.website-files.com/6257adef93867e50d84d30e2/6257d23c5fb25be7e0b6e220_Open%20Source%20Projects%20_%20Discord-7.svg" 
