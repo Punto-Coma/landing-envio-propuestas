@@ -1,3 +1,39 @@
+## It is a small landing page that receives the short description of a proposal to make in the community.
+
+## Principles
+
+
+Any server user can participate in the development of this bot. From taking out features to solving bugs. It is a community server for the community.
+
+## How to participate?
+
+First, to participate you must be part of the community of [discord](https://discord.gg/P7g9XJ4URc)
+
+
+## Collaborate with code
+If you wish to contribute code, please:
+
+- Review the open issues or create a new one explaining the improvement or bug to fix.
+
+- Make a fork of the repository.
+
+- Create a new branch for your feature or bug fix.
+
+- Write and test your code.
+
+- Make sure to follow the existing code style guidelines.
+
+- Send a Pull Request to the develop branch with a detailed description of the proposed changes and reference the related issue.
+
+## Contribute ideas, bugs or feedback
+
+If you have an idea, find a bug or want to give feedback on the project:
+
+- Open a new issue in the repository describing your idea, the bug you found or the feedback you want to share.
+- Be as detailed as possible in the description.
+- If possible, include screenshots or any other resource that can help to better understand your point.
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
