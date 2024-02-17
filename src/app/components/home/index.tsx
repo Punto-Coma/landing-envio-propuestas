@@ -54,16 +54,16 @@ export function HomeComponent() {
           </BackgroundGradient>
           <div className="flex justify-between mt-4 pt-10 items-start w-full max-w-2xl mx-auto ">
             {
-            !ready ?? (
+            ready && (
             <button 
               onClick={() => handleSubmit()}
-              className="p-3 mx-auto w-36 rounded-full bg-[#5865f2] text-neutral-50 font-bold text-lg mt-4 hover:opacity-75 z-50 transition-all">
+              className="py-2 mx-auto w-36 rounded-full bg-[#5865f2] text-neutral-50 font-bold text-md mt-4 hover:opacity-75 z-50 transition-all">
               Enviar
             </button>
             )}
           </div>
         </div>
-        <div className="border-t border-[#5865f2] flex justify-between mt-14 pt-10 items-center w-11/12 max-w-2xl">
+        <div className="border-t border-[#5865f2] flex flex-col gap-10 md:flex-row justify-between mt-14 pt-10 items-center w-11/12 max-w-2xl">
           <a data-track="logo" href="/" className="max-w-full inline-block">
             <Image 
               src="https://assets-global.website-files.com/6257adef93867e50d84d30e2/6257d23c5fb25be7e0b6e220_Open%20Source%20Projects%20_%20Discord-7.svg" 
@@ -74,27 +74,30 @@ export function HomeComponent() {
             />
           </a>
 
+
           {discordConnected ? (<>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              color="#12d612"
-              className="inline-block w-6 h-6 stroke-current"
-              >
-              <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-            </svg>
-            <span className="ml-2">Connected to Discord</span>
-          </>
+                  <div className='flex items-center justify-center'>
+                      <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          color="#12d612"
+                          className="inline-block w-6 h-6 stroke-current"
+                      >
+                          <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                          />
+                      </svg>
+                      <span className="ml-2 text-lg">Connected to Discord</span>
+                  </div>
+              </>
           ) : (
           <a
               href={`https://discord.com/api/oauth2/authorize?client_id=908033603190013952&redirect_uri=https%3A%2F%2Fstarhorizonsdemo.web.app%2Fcallback&response_type=code&scope=identify%20email%20guilds%20guilds.join`}
-              className="flex justify-between btn btn-ghost" rel="noreferrer"
+              className="flex justify-between btn btn-ghost items-center" rel="noreferrer"
               >
               <svg width={71} height={55} viewBox="0 0 71 55" fill="none" xmlns="http://www.w3.org/2000/svg" className="inline-block w-6 h-6 stroke-current">
                 <g clipPath="url(#clip0)">
@@ -106,7 +109,7 @@ export function HomeComponent() {
                     </clipPath>
                 </defs>
               </svg>
-              <span className="ml-2">Connect with Discord</span>
+              <span className="ml-2 text-lg">Connect with Discord</span>
           </a>
           )}
 
