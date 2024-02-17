@@ -7,7 +7,7 @@ import { useLocalStorage } from "react-use";
 
 export function HomeComponent() {
   const [loading, setLoading] = useState(false);
-  const [ready, setReady] = useState(false);
+  // const [ready, setReady] = useState(false);
   const [propuesta, setPropuesta] = useState("");
   const [discordConnected, setDiscordConnected] = React.useState(false);
   const [lsprofile, setLsProfile] = useLocalStorage<any>('DISCORD_PROFILE');
@@ -22,7 +22,10 @@ export function HomeComponent() {
 
   function handleSubmit() {
     setLoading(true);
-    
+  }
+
+  function handleSubmitAgain() {
+    setLoading(false)
   }
 
   return (
@@ -30,9 +33,18 @@ export function HomeComponent() {
       <BackgroundBeams className="bg-neutral-950 -z-50" />
 
       {loading ? (
-        <div className="max-w-2xl mx-auto p-4">
+        <>
+         <div className="max-w-2xl mx-auto p-4">
           <Image src={'https://assets-global.website-files.com/6257adef93867e50d84d30e2/62a315f45888ab5517509314_b941bc1dfe379db6cc1f2acc5a612f41-p-500.webp'} width={320} height={264} alt="discord flying" className="mx-auto animate-pulse"/>
         </div>
+        <p className="text-white">Propuesta enviada!</p>
+        <button 
+              onClick={() => handleSubmitAgain()}
+              className="p-3 mx-auto w-25 rounded-full bg-[#5865f2] text-neutral-50 font-bold text-lg mt-4 hover:opacity-75 z-50 transition-all">
+              Enviar otra
+          </button>
+        </>
+       
       ) : <>
         <div className="max-w-2xl mx-auto p-4">
           <Image src={'https://assets-global.website-files.com/6257adef93867e50d84d30e2/62a315f45888ab5517509314_b941bc1dfe379db6cc1f2acc5a612f41-p-500.webp'} width={320} height={264} alt="discord flying" className="mx-auto animate-pulse"/>
@@ -52,30 +64,25 @@ export function HomeComponent() {
               className="transition-all p-3 pl-4 rounded-lg border border-neutral-100 focus:ring-2 focus:ring-teal-500  w-full relative z-10   bg-neutral-950 placeholder:text-neutral-400 focus:placeholder:text-neutral-600 text-white"
             />
           </BackgroundGradient>
-          <div className="flex justify-between mt-4 pt-10 items-start w-full max-w-2xl mx-auto ">
-            {
-            !ready ?? (
-            <button 
-              onClick={() => handleSubmit()}
-              className="p-3 mx-auto w-36 rounded-full bg-[#5865f2] text-neutral-50 font-bold text-lg mt-4 hover:opacity-75 z-50 transition-all">
-              Enviar
-            </button>
+          <div className="flex justify-center mt-4 pt-10 items-center w-full max-w-2xl mx-auto">
+            {discordConnected ? (
+              <button 
+                onClick={() => handleSubmit()}
+                className="p-3 mx-auto w-36 rounded-full bg-[#5865f2] text-neutral-50 font-bold text-lg mt-4 hover:opacity-75 z-50 transition-all">
+                Enviar
+              </button>
+            ) : (
+              <div className="text-neutral-50 mt-4 z-50 text-center">
+                Conéctate con Discord para enviar propuestas.
+              </div>
             )}
           </div>
         </div>
         <div className="border-t border-[#5865f2] flex justify-between mt-14 pt-10 items-center w-11/12 max-w-2xl">
-          <a data-track="logo" href="/" className="max-w-full inline-block">
-            <Image 
-              src="https://assets-global.website-files.com/6257adef93867e50d84d30e2/6257d23c5fb25be7e0b6e220_Open%20Source%20Projects%20_%20Discord-7.svg" 
-              alt="Discord footer" 
-              className="discord-footer" 
-              width={124} 
-              height={32}
-            />
-          </a>
 
           {discordConnected ? (<>
-            <svg
+          <div>
+          <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -89,12 +96,15 @@ export function HomeComponent() {
                   d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                   />
             </svg>
-            <span className="ml-2">Connected to Discord</span>
+            <span className="ml-2 text-white">Connected to Discord</span>
+          </div>
+            
           </>
           ) : (
           <a
               href={`https://discord.com/api/oauth2/authorize?client_id=908033603190013952&redirect_uri=https%3A%2F%2Fstarhorizonsdemo.web.app%2Fcallback&response_type=code&scope=identify%20email%20guilds%20guilds.join`}
               className="flex justify-between btn btn-ghost" rel="noreferrer"
+              target="_blank"
               >
               <svg width={71} height={55} viewBox="0 0 71 55" fill="none" xmlns="http://www.w3.org/2000/svg" className="inline-block w-6 h-6 stroke-current">
                 <g clipPath="url(#clip0)">
@@ -106,13 +116,15 @@ export function HomeComponent() {
                     </clipPath>
                 </defs>
               </svg>
-              <span className="ml-2">Connect with Discord</span>
+              <span className="ml-2 text-white">Connect with Discord</span>
           </a>
           )}
 
-          {/* <a href="https://discord.gg/EbfYeBRq" className="text-neutral-50 rounded-full bg-[#5865f2] p-2 w-30 text-center text-sm hover:opacity-75 transition-all z-50">
+          <a href="https://discord.gg/EbfYeBRq" className="text-neutral-50 rounded-full p-2 w-30 text-center text-sm hover:opacity-75 transition-all z-50">
             Join Discord 
-          </a> */}
+          </a>
+
+          <a href="https://twitter.com/puntoycomaCo_" target="_blank" className="text-neutral-50 rounded-full p-2 w-30 text-center text-sm hover:opacity-75 transition-all z-50">Follow on twitter</a>
         </div>
       </>}
 
