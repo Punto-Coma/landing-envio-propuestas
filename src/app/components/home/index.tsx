@@ -143,7 +143,7 @@ export function HomeComponent() {
 
                     </div>
                 <div
-                    className="flex flex-col gap-10 md:flex-row justify-between items-center w-11/12 max-w-2xl">
+                    className="flex flex-col gap-10 md:flex-row justify-between items-center w-11/12 max-w-2xl pb-8">
                         <a href="https://discord.gg/EbfYeBRq"
                            className="text-neutral-50 text-md rounded-full w-30 text-center  hover:opacity-75 transition-all z-50">
                             Join Our Discord
