@@ -1,6 +1,5 @@
 "use client";
 import React, {useState} from "react";
-import {BackgroundBeams} from "../ui/background-beams";
 import {BackgroundGradient} from "../ui/background-gradient";
 import Image from "next/image";
 import {useLocalStorage} from "react-use";
@@ -38,8 +37,7 @@ export function HomeComponent() {
     }
 
     return (
-        <div className="h-screen w-full rounded-md relative flex flex-col items-center justify-center antialiased">
-            <BackgroundBeams className="bg-neutral-950 -z-50"/>
+        <>
 
             {loading ? (
                 <>
@@ -157,6 +155,6 @@ export function HomeComponent() {
 
             </>}
 
-        </div>
+        </>
     );
 }
