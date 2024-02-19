@@ -78,7 +78,7 @@ export function HomeComponent() {
                     <form>
                         <InputProposal proposal={propuesta} onChange={handleChangePropuesta}/>
                         <div className="flex justify-between mt-4 pt-10 items-start w-full max-w-2xl mx-auto">
-                        <Button disabled={!propuesta.length} onClick={handleSubmit}/>
+                        <Button disabled={!propuesta.length && !lsprofile} onClick={handleSubmit}/>
                         </div>
                     </form>
                 </div>
