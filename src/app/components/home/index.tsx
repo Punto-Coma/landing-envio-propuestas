@@ -75,7 +75,7 @@ export function HomeComponent() {
                             className="transition-all p-3 pl-4 rounded-lg border border-neutral-100 focus:ring-2 focus:ring-teal-500  w-full relative z-10   bg-neutral-950 placeholder:text-neutral-400 focus:placeholder:text-neutral-600 text-white"
                         />
                     </BackgroundGradient>
-                    <div className="flex justify-between mt-4 pt-10 items-start w-full max-w-2xl mx-auto ">
+                    <div className="flex justify-between right-0 left-0 items-start w-full max-w-2xl mx-auto absolute">
                         {
                             ready && (
                                 <button
@@ -87,7 +87,7 @@ export function HomeComponent() {
                     </div>
                 </div>
                 <div
-                    className="border-t border-[#5865f2] flex flex-col gap-10 md:flex-row justify-between mt-14 py-10 items-center w-11/12 max-w-2xl">
+                    className="border-t border-[#5865f2] flex flex-col gap-10 md:flex-row justify-between mt-20 py-10 items-center w-11/12 max-w-2xl">
 
                             <a data-track="logo" href="/" className="max-w-full inline-block">
                                 <Image
