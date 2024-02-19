@@ -76,14 +76,16 @@ export function HomeComponent() {
                         Comunidad de Discord
                     </p>
                     <form>
-                        <InputProposal proposal={propuesta} onChange={handleChangePropuesta}/>
-                        <div className="flex justify-between mt-4 pt-10 items-start w-full max-w-2xl mx-auto">
-                        <Button disabled={!propuesta.length && !lsprofile} onClick={handleSubmit}/>
-                        </div>
+                      <div className="flex flex-col md:flex-row gap-3 mt-8">
+                          <div className="flex-grow">
+                              <InputProposal proposal={propuesta} onChange={handleChangePropuesta}/>
+                          </div>
+                           <Button disabled={!propuesta.length && !lsprofile} onClick={handleSubmit}/>
+                      </div>
                     </form>
                 </div>
                 <div
-                    className="border-t border-[#5865f2] flex flex-col gap-10 md:flex-row justify-between mt-14 py-10 items-center w-11/12 max-w-2xl">
+                    className="border-t border-[#5865f2] flex flex-col gap-10 md:flex-row justify-between mt-12 py-10 items-center w-11/12 max-w-2xl">
 
                             <a data-track="logo" href="/" className="max-w-full inline-block">
                                 <Image
@@ -139,7 +141,7 @@ export function HomeComponent() {
 
                     </div>
                 <div
-                    className="flex flex-col gap-10 md:flex-row justify-between items-center w-11/12 max-w-2xl">
+                    className="flex flex-col gap-10 md:flex-row justify-between items-center w-11/12 max-w-2xl pb-8">
                         <a href="https://discord.gg/EbfYeBRq"
                            className="text-neutral-50 text-md rounded-full w-30 text-center  hover:opacity-75 transition-all z-50">
                             Join Our Discord
