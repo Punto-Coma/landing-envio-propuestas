@@ -22,8 +22,8 @@ export function HomeComponent() {
         }
     }, [lsprofile]);
 
-    const handleSubmit = (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        e.preventDefault();
+    const handleSubmit = () => {
+     
         sendMessage(propuesta)
         .then(x => {
             setLoading(true);
@@ -76,7 +76,7 @@ export function HomeComponent() {
                         Comunidad de Discord
                     </p>
                     <form>
-                      <div className="flex flex-col md:flex-row gap-3 mt-8">
+                      <div className="flex flex-col md:flex-row md:align-middle gap-3 mt-8">
                           <div className="flex-grow">
                               <InputProposal proposal={propuesta} onChange={handleChangePropuesta}/>
                           </div>
