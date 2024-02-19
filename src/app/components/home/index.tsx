@@ -4,10 +4,14 @@ import {BackgroundGradient} from "../ui/background-gradient";
 import Image from "next/image";
 import {useLocalStorage} from "react-use";
 
+import Button from "../common/Button";
+import { sendMessage } from "@/client/discord/webhook";
+import InputProposal from "./InputProposal";
+
 export function HomeComponent() {
     const [loading, setLoading] = useState(false);
-    const [ready, setReady] = useState(false);
-    const [propuesta, setPropuesta] = useState("");
+    const [propuesta, setPropuesta] = useState<string>("");
+    const [error, setError] = useState<boolean>(false)
     const [discordConnected, setDiscordConnected] = React.useState(true);
     const [lsprofile, setLsProfile] = useLocalStorage<any>('DISCORD_PROFILE');
 
@@ -18,9 +22,16 @@ export function HomeComponent() {
         }
     }, [lsprofile]);
 
-
-    function handleSubmit() {
-        setLoading(true);
+    const handleSubmit = (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.preventDefault();
+        sendMessage(propuesta)
+        .then(x => {
+            setLoading(true);
+            setPropuesta('')
+        })
+        .catch(e => {
+            setError(true)
+        })
     }
 
     function handleSubmitAgain() {
@@ -28,11 +39,10 @@ export function HomeComponent() {
     }
 
     function handleChangePropuesta(value: string) {
-        setReady(false);
         setPropuesta(value);
 
         if (value.length > 0 && discordConnected) {
-            setReady(true);
+    
         }
     }
 
@@ -65,26 +75,12 @@ export function HomeComponent() {
                     <p className="text-neutral-500 max-w-lg mx-auto my-2 text-center relative z-10">
                         Comunidad de Discord
                     </p>
-                    <BackgroundGradient className="rounded-lg p-0 bg-neutral-950 dark:bg-zinc-900 mt-8">
-                        <input
-                            type="text"
-                            value={propuesta}
-                            // this is giving me re renders on BackgroundGradient effect fix
-                            placeholder="Ingresá tu propuesta de proyecto"
-                            onChange={v => handleChangePropuesta(v.target.value)}
-                            className="transition-all p-3 pl-4 rounded-lg border border-neutral-100 focus:ring-2 focus:ring-teal-500  w-full relative z-10   bg-neutral-950 placeholder:text-neutral-400 focus:placeholder:text-neutral-600 text-white"
-                        />
-                    </BackgroundGradient>
-                    <div className="flex justify-between mt-4 pt-10 items-start w-full max-w-2xl mx-auto ">
-                        {
-                            ready && (
-                                <button
-                                    onClick={() => handleSubmit()}
-                                    className="py-2 mx-auto w-36 rounded-full bg-[#5865f2] text-neutral-50 font-bold text-md mt-4 hover:opacity-75 z-50 transition-all">
-                                    Enviar
-                                </button>
-                            )}
-                    </div>
+                    <form>
+                        <InputProposal proposal={propuesta} onChange={handleChangePropuesta}/>
+                        <div className="flex justify-between mt-4 pt-10 items-start w-full max-w-2xl mx-auto">
+                        <Button disabled={!propuesta.length} onClick={handleSubmit}/>
+                        </div>
+                    </form>
                 </div>
                 <div
                     className="border-t border-[#5865f2] flex flex-col gap-10 md:flex-row justify-between mt-14 py-10 items-center w-11/12 max-w-2xl">
