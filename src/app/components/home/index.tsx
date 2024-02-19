@@ -65,29 +65,29 @@ export function HomeComponent() {
                     <p className="text-neutral-500 max-w-lg mx-auto my-2 text-center relative z-10">
                         Comunidad de Discord
                     </p>
-                    <BackgroundGradient className="rounded-lg p-0 bg-neutral-950 dark:bg-zinc-900 mt-8">
-                        <input
-                            type="text"
-                            value={propuesta}
-                            // this is giving me re renders on BackgroundGradient effect fix
-                            placeholder="Ingresá tu propuesta de proyecto"
-                            onChange={v => handleChangePropuesta(v.target.value)}
-                            className="transition-all p-3 pl-4 rounded-lg border border-neutral-100 focus:ring-2 focus:ring-teal-500  w-full relative z-10   bg-neutral-950 placeholder:text-neutral-400 focus:placeholder:text-neutral-600 text-white"
-                        />
-                    </BackgroundGradient>
-                    <div className="flex justify-between right-0 left-0 items-start w-full max-w-2xl mx-auto absolute">
-                        {
-                            ready && (
-                                <button
-                                    onClick={() => handleSubmit()}
-                                    className="py-2 mx-auto w-36 rounded-full bg-[#5865f2] text-neutral-50 font-bold text-md mt-4 hover:opacity-75 z-50 transition-all">
-                                    Enviar
-                                </button>
-                            )}
+                    <div className="flex flex-col md:flex-row gap-3 mt-8">
+                        <div className="flex-grow">
+                            <BackgroundGradient className="rounded-lg bg-neutral-950 dark:bg-zinc-900">
+                                <input
+                                    type="text"
+                                    value={propuesta}
+                                    // this is giving me re renders on BackgroundGradient effect fix
+                                    placeholder="Ingresá tu propuesta de proyecto"
+                                    onChange={v => handleChangePropuesta(v.target.value)}
+                                    className="transition-all w-full p-3 pl-4 rounded-lg border border-neutral-100 focus:ring-2 focus:ring-teal-500 z-10 bg-neutral-950 placeholder:text-neutral-400 focus:placeholder:text-neutral-600 text-white outline-none"
+                                    />
+                            </BackgroundGradient>
+                        </div>
+                        <button
+                            disabled={!ready}
+                            onClick={() => handleSubmit()}
+                            className={`py-3 w-full md:w-1/4 flex-shrink rounded-lg bg-[#5865f2] text-neutral-50 font-bold text-md z-50 transition-all ${ready ? "hover:bg-[#4553e6]" : "opacity-75"}`}>
+                                Enviar
+                        </button>
                     </div>
                 </div>
                 <div
-                    className="border-t border-[#5865f2] flex flex-col gap-10 md:flex-row justify-between mt-20 py-10 items-center w-11/12 max-w-2xl">
+                    className="border-t border-[#5865f2] flex flex-col gap-10 md:flex-row justify-between mt-12 py-10 items-center w-11/12 max-w-2xl">
 
                             <a data-track="logo" href="/" className="max-w-full inline-block">
                                 <Image
