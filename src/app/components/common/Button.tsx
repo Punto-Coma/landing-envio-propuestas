@@ -8,10 +8,11 @@ interface Props {
 
 const Button = ({ disabled, onClick}:Props) => {
 
-    const sendButtonClass = cn('py-2 mx-auto w-36 rounded-lg bg-[#5865f2] text-neutral-50 font-bold text-md mt-4 cursor-pointer z-50 transition-all ease-out duration-400 hover:scale-110',{
+    const sendButtonClass = cn('py-3 w-full md:w-1/4 flex-shrink rounded-lg bg-[#5865f2] text-neutral-50 font-bold text-md z-50 transition-all',{
         'opacity-40': disabled,
+        'hover:bg-[#4553e6]': ready,
+        'opacity-75': !ready
     })
-
 
   return (
     <button
