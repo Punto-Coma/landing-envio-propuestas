@@ -29,8 +29,6 @@ export async function GET(request: NextRequest, response: NextResponse) {
     if(!code || code === '') return new NextResponse(null, { status: 400, statusText: 'Bad Request, missing params' });
 
     const body = new URLSearchParams({
-        client_id: CLIENT_ID,
-        client_secret: CLIENT_SECRET,
         grant_type: 'authorization_code',
         redirect_uri: 'http://localhost:3000',
         code,
@@ -39,19 +37,23 @@ export async function GET(request: NextRequest, response: NextResponse) {
 
     console.log(code)
 
-    
-    const { access_token = null, token_type = 'Bearer' } = await fetch('https://discord.com/api/oauth2/token', {
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+
+    const responseToken = await fetch('https://discord.com/api/v10/oauth2/token', {
+        headers: { 
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': `Basic ${Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64')}`
+         },
         method: 'POST',
         body
     }).then((res) => res.json()).catch(e => console.log(e));
 
-    console.log(access_token)
 
-    if (!access_token || typeof access_token !== 'string') return new NextResponse(null, { status: 401, statusText: 'Unauthorized' }); 
+    console.log(responseToken)
 
-    const me: DiscordUser | { unauthorized: true } = await fetch('https://discord.com/api/users/@me', {
-        headers: { Authorization: `${token_type} ${access_token}` }
+    // if (!access_token || typeof access_token !== 'string') return new NextResponse(null, { status: 401, statusText: 'Unauthorized' }); 
+
+    const me: DiscordUser | { unauthorized: true } = await fetch('https://discord.com/api/v10/users/@me', {
+        headers: { Authorization: `Bearer ${responseToken.access_token}` }
     }).then((res) => res.json());
 
     if (!('id' in me)) return new NextResponse(null, { status: 404, statusText: 'User Not Found' });;
@@ -69,7 +71,7 @@ export async function GET(request: NextRequest, response: NextResponse) {
     //     // guilds: guilds(response3.data), //[]
     // };
 
-    console.log("Sending response: ", me);
+    // console.log("Sending response: ", me);
     
     return new NextResponse(JSON.stringify(me));
 }
