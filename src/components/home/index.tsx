@@ -23,7 +23,6 @@ export function HomeComponent({user}: Props) {
     const [propuesta, setPropuesta] = useState("");
 
     const handleSubmit = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        e.preventDefault();
         await sendMessage(propuesta)
         .then(x => {
             setPropuesta('')
@@ -84,6 +83,7 @@ export function HomeComponent({user}: Props) {
                         <button
                             disabled={!ready}
                             onClick={handleSubmit}
+                            type="button"
                             className={`p-3 w-full mt-8 md:w-1/4 flex-shrink rounded-lg bg-[#5865f2] text-neutral-50 font-bold text-md z-50 transition-all ${ready ? "hover:bg-[#4553e6]" : "opacity-75"}`}>
                                 Enviar
                         </button>
