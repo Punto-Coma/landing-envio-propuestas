@@ -4,6 +4,7 @@ import React, {useState} from "react";
 import Image from "next/image";
 import { sendMessage } from "@/client/discord/webhook";
 import InputProposal from "./InputProposal";
+import Cookies from "js-cookie";
 
 type Props = {
     user: {
@@ -42,6 +43,13 @@ export function HomeComponent({user}: Props) {
         if (value.length > 0) {
             setReady(true);
         }
+    }
+
+    function exit() {
+        Cookies.remove('puntoycomadsu');
+        setTimeout(() => 
+            window.location.reload()
+        ,500)
     }
 
     return (
@@ -97,6 +105,7 @@ export function HomeComponent({user}: Props) {
                     <div className='flex items-center justify-center'>
                         <span className="border-4 border-green-500 rounded-full" />
                         <span className="mx-2 text-lg text-white">#{user.username}</span>
+                        <button onClick={() => exit()} className="mx-2 text-lg text-white absolute bottom-4 right-4">exit</button>
                         <Image
                             src={user.avatar || "https://assets-global.website-files.com/6257adef93867e50d84d30e2/6257d23c5fb25be7e0b6e220_Open%20Source%20Projects%20_%20Discord-7.svg"}
                             alt="Discord footer"
