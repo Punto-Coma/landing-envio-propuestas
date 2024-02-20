@@ -30,12 +30,16 @@ function getAvatar (user: any) {
 }
 
   
+const GUILD_ID = process.env.GUILD_ID;
 const CLIENT_ID = process.env.CLIENT_ID;
+const BOT_TOKEN = process.env.BOT_TOKEN;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const NEXT_PUBLIC_URL = process.env.NEXT_PUBLIC_URL;
 
 export async function GET(request: NextRequest, response: NextResponse) {
     if(!CLIENT_ID || !CLIENT_SECRET) throw new Error("missing envs");
+
+    console.log("API CALL=====================")
 
     const code = request.nextUrl.searchParams.get("code") ?? '';
     
@@ -50,7 +54,7 @@ export async function GET(request: NextRequest, response: NextResponse) {
 
     console.log(code)
 
-
+    // get auth token for this user with code
     const responseToken = await fetch('https://discord.com/api/oauth2/token', {
         headers: { 
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -65,14 +69,31 @@ export async function GET(request: NextRequest, response: NextResponse) {
 
     // if (!access_token || typeof access_token !== 'string') return new NextResponse(null, { status: 401, statusText: 'Unauthorized' }); 
 
+    // request user info with token
     const me: DiscordUser | { unauthorized: true } = await fetch('https://discord.com/api/v10/users/@me', {
-        headers: { Authorization: `Bearer ${responseToken.access_token}` }
+        headers: { 
+            Authorization: `Bearer ${responseToken.access_token}` 
+        }
     }).then((res) => res.json());
 
     if (!('id' in me)) return new NextResponse(null, { status: 404, statusText: 'User Not Found' });;
 
-    console.log("users/@me call");
-    
+    // add user to the server
+    const join_guild = await fetch(`https://discord.com/api/guilds/${GUILD_ID}/members/${me.id}`, {
+            method: 'PUT',
+            headers: {
+                "Content-Type": 'application/json',
+                "Authorization": `Bot ${BOT_TOKEN}`
+            },
+            body: JSON.stringify({
+                access_token: String(responseToken.access_token)
+            })
+        })
+        .then(res => res.json())
+        .catch(e => console.log('join_guild: ',e))
+
+    console.log('join?: ', join_guild)
+
     const userObject = {
         ...me,
         avatar: getAvatar(me), //string
