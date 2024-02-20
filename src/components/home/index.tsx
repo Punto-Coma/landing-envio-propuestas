@@ -1,11 +1,9 @@
 "use client";
 
 import React, {useState} from "react";
-import {BackgroundGradient} from "../ui/background-gradient";
 import Image from "next/image";
 import { sendMessage } from "@/client/discord/webhook";
 import InputProposal from "./InputProposal";
-import Button from "../common/Button";
 
 type Props = {
     user: {
@@ -100,7 +98,6 @@ export function HomeComponent({user}: Props) {
                         <span className="border-4 border-green-500 rounded-full" />
                         <span className="mx-2 text-lg text-white">#{user.username}</span>
                         <Image
-                            // src="https://assets-global.website-files.com/6257adef93867e50d84d30e2/6257d23c5fb25be7e0b6e220_Open%20Source%20Projects%20_%20Discord-7.svg"
                             src={user.avatar || "https://assets-global.website-files.com/6257adef93867e50d84d30e2/6257d23c5fb25be7e0b6e220_Open%20Source%20Projects%20_%20Discord-7.svg"}
                             alt="Discord footer"
                             className="rounded-full border border-1 border-[#5865f2]"
