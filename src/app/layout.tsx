@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <main className="flex min-h-screen flex-col items-center justify-between">
-          <div className="h-screen w-full rounded-md relative flex flex-col items-center justify-center antialiased">
+          <div className="min-h-screen w-full rounded-md relative flex flex-col items-center justify-center antialiased">
             <BackgroundBeams className="bg-neutral-950 -z-50"/>
             <Image
               src={'https://cdn.discordapp.com/icons/1045166944380256286/1ff8554f4291ba9a09c016e41448c9e6.webp?size=100'}
