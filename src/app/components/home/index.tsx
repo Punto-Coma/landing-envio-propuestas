@@ -24,7 +24,8 @@ export function HomeComponent() {
 
     const handleSubmit = (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
-        sendMessage(propuesta)
+        // TODO: replace empty string with user name and avatar url
+        sendMessage(propuesta, '','')
         .then(x => {
             setLoading(true);
             setPropuesta('')
@@ -80,7 +81,7 @@ export function HomeComponent() {
                           <div className="flex-grow">
                               <InputProposal proposal={propuesta} onChange={handleChangePropuesta}/>
                           </div>
-                           <Button disabled={!propuesta.length && !lsprofile} onClick={handleSubmit}/>
+                           <Button disabled={!propuesta.trim().length && !lsprofile} onClick={handleSubmit}/>
                       </div>
                     </form>
                 </div>
