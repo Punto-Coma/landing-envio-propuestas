@@ -23,7 +23,7 @@ export function HomeComponent({user}: Props) {
     const [propuesta, setPropuesta] = useState("");
 
     const handleSubmit = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        await sendMessage(propuesta)
+        await sendMessage(propuesta, `${user.username}`, `${user.avatar}`)
         .then(x => {
             setPropuesta('')
             setSent(true);
