@@ -17,6 +17,18 @@ export interface DiscordUser {
     premium_type: number;
   }
 
+function getAvatar (user: any) {
+    if (user.avatar) {
+        if (user.avatar.startsWith('a_')) {
+            return `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.gif?size=2048`;
+        } else {
+            return `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.jpg?size=2048`;
+        }
+    } else {
+        return `https://cdn.discordapp.com/embed/avatars/${user.discriminator % 5}.png?size=2048`;
+    }
+}
+
   
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
@@ -30,7 +42,7 @@ export async function GET(request: NextRequest, response: NextResponse) {
 
     const body = new URLSearchParams({
         grant_type: 'authorization_code',
-        redirect_uri: 'http://localhost:3000',
+        redirect_uri: 'http://localhost:3000/callback',
         code,
         scope
       }).toString();
@@ -38,7 +50,7 @@ export async function GET(request: NextRequest, response: NextResponse) {
     console.log(code)
 
 
-    const responseToken = await fetch('https://discord.com/api/v10/oauth2/token', {
+    const responseToken = await fetch('https://discord.com/api/oauth2/token', {
         headers: { 
             'Content-Type': 'application/x-www-form-urlencoded',
             'Authorization': `Basic ${Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64')}`
@@ -60,19 +72,11 @@ export async function GET(request: NextRequest, response: NextResponse) {
 
     console.log("users/@me call");
     
-    // const userObject = {
-    //     nickname: me.username, //string
-    //     tag: me.discriminator, //string
-    //     id: me.id, //string? or number
-    //     locale: me.locale, //string
-    //     email: me.email, //string
-    //     avatar: getAvatar(me), //string
-    //     nitroStatus: nitro(me)  //string
-    //     // guilds: guilds(response3.data), //[]
-    // };
+    const userObject = {
+        ...me,
+        avatar: getAvatar(me), //string
+    };
 
-    // console.log("Sending response: ", me);
-    
-    return new NextResponse(JSON.stringify(me));
+    return new NextResponse(JSON.stringify(userObject));
 }
 
