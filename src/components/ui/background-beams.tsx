@@ -29,7 +29,8 @@ export function BackgroundBeamsDemo() {
   );
 }
 
-export const BackgroundBeams = ({ className }: { className?: string }) => {
+export const BackgroundBeams = React.memo(
+  ({ className }: { className?: string }) => {
   const paths = [
     "M-380 -189C-380 -189 -312 216 152 343C616 470 684 875 684 875",
     "M-373 -197C-373 -197 -305 208 159 335C623 462 691 867 691 867",
@@ -158,4 +159,5 @@ export const BackgroundBeams = ({ className }: { className?: string }) => {
       </svg>
     </div>
   );
-};
+}
+);
