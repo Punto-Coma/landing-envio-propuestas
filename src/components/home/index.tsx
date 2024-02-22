@@ -3,46 +3,31 @@
 import React, {useState} from "react";
 import Image from "next/image";
 import { sendMessage } from "@/client/discord/webhook";
-import InputProposal from "./InputProposal";
 import Cookies from "js-cookie";
+import InputProposal from "./InputProposal";
+import { Button } from "../ui/button";
 
 type Props = {
     user: {
         id: string,
         avatar: string,
-        username: string
+        username: string,
         global_name: string
     }
 }
 
 export function HomeComponent({user}: Props) {
     const [sent, setSent] = useState(false);
-    const [ready, setReady] = useState(false);
     const [error, setError] = useState<boolean>(false)
-    const [propuesta, setPropuesta] = useState("");
 
-    const handleSubmit = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        await sendMessage(propuesta, `${user.username}`, `${user.avatar}`)
+    const handleSubmit = async (data: { proposal: string }) => {
+        await sendMessage(data.proposal, `${user.username}`, `${user.avatar}`)
         .then(x => {
-            setPropuesta('')
             setSent(true);
         })
         .catch(e => {
             setError(true)
         })
-    }
-
-    function handleSubmitAgain() {
-        setSent(false)
-    }
-
-    function handleChangePropuesta(value: string) {
-        setReady(false);
-        setPropuesta(value);
-
-        if (value.length > 0) {
-            setReady(true);
-        }
     }
 
     function exit() {
@@ -54,20 +39,16 @@ export function HomeComponent({user}: Props) {
 
     return (
         <>
-
             {sent ? (
                 <>
                     <div className="max-w-2xl mx-auto p-4">
                         <Image
                             src={'https://assets-global.website-files.com/6257adef93867e50d84d30e2/62a315f45888ab5517509314_b941bc1dfe379db6cc1f2acc5a612f41-p-500.webp'}
                             width={320} height={264} alt="discord flying" className="mx-auto animate-pulse"/>
+
+                        <div className="text-white mx-auto my-4 text-center">Propuesta enviada!</div>
+                        <Button type="button" onClick={()=> setSent(!sent)}>Enviar otra</Button>
                     </div>
-                    <span className="text-white mx-auto">Propuesta enviada!</span>
-                    <button
-                        onClick={() => handleSubmitAgain()}
-                        className={`p-3 w-full mt-8 md:w-1/4 flex-shrink rounded-lg bg-[#5865f2] text-neutral-50 font-bold text-md z-50 transition-all hover:bg-[#4553e6]`}>
-                        Enviar otra
-                    </button>
                 </>
 
             ) : <>
@@ -82,18 +63,7 @@ export function HomeComponent({user}: Props) {
                         Comunidad de Discord
                     </p>
                     
-                    <div className="flex flex-col md:flex-row gap-3 mt-8">
-                        <div className="flex-grow">
-                            <InputProposal proposal={propuesta} onChange={handleChangePropuesta}/>
-                        </div>
-                        <button
-                            disabled={!ready}
-                            onClick={handleSubmit}
-                            type="button"
-                            className={`p-3 w-full mt-8 md:w-1/4 flex-shrink rounded-lg bg-[#5865f2] text-neutral-50 font-bold text-md z-50 transition-all ${ready ? "hover:bg-[#4553e6]" : "opacity-75"}`}>
-                                Enviar
-                        </button>
-                    </div>
+                    <InputProposal onSubmit={handleSubmit}/>
                 </div>
 
                 <div className="border-t border-[#5865f2] flex flex-col-reverse gap-10 md:flex-row justify-between mt-14 py-5 items-center w-11/12 max-w-2xl">

@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import { useEffect, useState } from "react"
 import { useSearchParam } from "react-use"
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
 
 const NEXT_PUBLIC_URL = process.env.NEXT_PUBLIC_URL;
 
@@ -30,7 +31,7 @@ export default function Callback() {
 
         if(code && !error) getUser()
 
-    }, [])
+    }, [code, error])
 
     if(loading) return (<div className="flex flex-col justify-center items-center">
                             <Image
@@ -38,14 +39,16 @@ export default function Callback() {
                             width={160} height={132} alt="discord flying" className="mx-auto animate-bounce"/>
                         </div>);
     
-    return (<>
-        {error ? 
-                <button
-                    onClick={() => window.location.href = `https://discord.com/api/oauth2/authorize?client_id=1208381826092240897&redirect_uri=${NEXT_PUBLIC_URL}/callback&response_type=code&scope=identify+email+guilds+guilds.join`}
-                    className={`p-3 w-full mt-8 md:w-1/4 flex-shrink rounded-lg bg-[#5865f2] text-neutral-50 font-bold text-md z-50 transition-all hover:bg-[#4553e6]`}>
-                    Reintentar
-            </button>
-            : <></>}
+    return (
+    <>
+        {error && 
+            <Button
+                className="w-11/12 max-w-xs"
+                onClick={() => window.location.href = `https://discord.com/api/oauth2/authorize?client_id=1208381826092240897&redirect_uri=${NEXT_PUBLIC_URL}/callback&response_type=code&scope=identify+email+guilds+guilds.join`}
+                >
+                Reintentar
+            </Button>
+        }        
     </>
     )
 
