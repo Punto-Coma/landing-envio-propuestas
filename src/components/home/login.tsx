@@ -4,10 +4,17 @@ export function Login() {
 
     const url = process.env.NEXT_PUBLIC_URL;
 
+    if(!client_id || !url)
+        return (
+        <div className="max-w-2xl mx-auto p-4">
+            {'.ENVs needed'}
+        </div>
+    )
+
     return (
         <div className="max-w-2xl mx-auto p-4">
             <a
-                href={`https://discord.com/api/oauth2/authorize?client_id=${}&redirect_uri=${}/callback&response_type=code&scope=identify+email+guilds+guilds.join`}
+                href={`https://discord.com/api/oauth2/authorize?client_id=${client_id}&redirect_uri=${url}/callback&response_type=code&scope=identify+email+guilds+guilds.join`}
                 className="flex justify-between btn btn-ghost items-center" rel="noreferrer"
             >
                 <svg width={71} height={55} viewBox="0 0 71 55" fill="none"
