@@ -5,7 +5,11 @@ export function Login() {
     const url = process.env.NEXT_PUBLIC_URL;
 
     if(!client_id || !url)
-        return <div className="max-w-2xl mx-auto p-4">.ENVs needed</div>
+        return (
+        <div className="max-w-2xl mx-auto p-4">
+            {'.ENVs needed'}
+        </div>
+    )
 
     return (
         <div className="max-w-2xl mx-auto p-4">
