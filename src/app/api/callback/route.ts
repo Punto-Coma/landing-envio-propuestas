@@ -32,9 +32,10 @@ function getAvatar (user: any) {
   
 const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
+const URL = process.env.NEXT_PUBLIC_URL;
 
 export async function GET(request: NextRequest, response: NextResponse) {
-    if(!CLIENT_ID || !CLIENT_SECRET) throw new Error("missing envs");
+    if(!CLIENT_ID || !CLIENT_SECRET || !URL) throw new Error("missing envs");
 
     const code = request.nextUrl.searchParams.get("code") ?? '';
     
@@ -42,7 +43,7 @@ export async function GET(request: NextRequest, response: NextResponse) {
 
     const body = new URLSearchParams({
         grant_type: 'authorization_code',
-        redirect_uri: 'http://localhost:3000/callback',
+        redirect_uri: URL,
         code,
         scope
       }).toString();

@@ -5,6 +5,9 @@ import { useEffect, useState } from "react"
 import { useSearchParam } from "react-use"
 import Image from "next/image";
 
+const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
+const URL = process.env.NEXT_PUBLIC_URL;
+
 export default function Callback() {
     const code = useSearchParam("code")
     const [loading, setLoading] = useState(true)
@@ -39,7 +42,7 @@ export default function Callback() {
     return (<>
         {error ? 
                 <button
-                    onClick={() => window.location.href = 'https://discord.com/api/oauth2/authorize?client_id=1208381826092240897&redirect_uri=http://localhost:3000/callback&response_type=code&scope=identify+email+guilds+guilds.join'}
+                    onClick={() => window.location.href = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${URL}/callback&response_type=code&scope=identify+email+guilds+guilds.join`}
                     className={`p-3 w-full mt-8 md:w-1/4 flex-shrink rounded-lg bg-[#5865f2] text-neutral-50 font-bold text-md z-50 transition-all hover:bg-[#4553e6]`}>
                     Reintentar
             </button>
