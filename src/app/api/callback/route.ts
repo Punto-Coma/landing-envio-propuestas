@@ -30,7 +30,7 @@ function getAvatar (user: any) {
 }
 
   
-const CLIENT_ID = process.env.NEXT_CLIENT_ID;
+const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 
 export async function GET(request: NextRequest, response: NextResponse) {
