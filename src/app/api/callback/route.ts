@@ -43,7 +43,7 @@ export async function GET(request: NextRequest, response: NextResponse) {
 
     const body = new URLSearchParams({
         grant_type: 'authorization_code',
-        redirect_uri: URL,
+        redirect_uri: `${URL}/callback`,
         code,
         scope
       }).toString();
