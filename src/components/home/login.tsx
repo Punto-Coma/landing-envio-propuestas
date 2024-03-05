@@ -1,6 +1,6 @@
 export function Login() {
 
-    const client_id = process.env.NEXT_CLIENT_ID;
+    const client_id = process.env.NEXT_PUBLIC_CLIENT_ID;
 
     const url = process.env.NEXT_PUBLIC_URL;
 
